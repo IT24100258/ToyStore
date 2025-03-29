@@ -111,6 +111,49 @@ public class FileUtil {
         return null;
     }
 
+    public static boolean removeUser(String email){
+        File customerFile = getUserFile("customer");
+        return removeUserFromFile(customerFile, email);
+    }
+
+    private static boolean removeUserFromFile(File file, String email) {
+        List<String> updatedLines = new ArrayList<>();
+        boolean userFound = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length >= 4 && data[3].equals(email)) {
+                    userFound = true;
+                    continue;
+                }
+                updatedLines.add(line);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading user file: " + e.getMessage());
+            return false;
+        }
+
+        if (userFound) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                for (String updatedLine : updatedLines) {
+                    writer.write(updatedLine);
+                    writer.newLine();
+                }
+                System.out.println("Customer with email " + email + " removed successfully.");
+                return true;
+            } catch (IOException e) {
+                System.err.println("Error writing to user file: " + e.getMessage());
+                return false;
+            }
+        } else {
+            System.out.println("Customer with email " + email + " not found.");
+            return false;
+        }
+    }
+
+
     private static String encrypt(String data) {
         if (data == null) return null;
 

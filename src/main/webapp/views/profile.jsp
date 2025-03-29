@@ -4,23 +4,23 @@
   Date: 3/24/2025
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.sql.*" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 
 <%
-    // Dummy data (Replace with actual database values)
-    String username = "Ulindu";
-    String email = "ulindu@gmail.com";
-    String address = "No 44/8, Rosmiyarwatthe, Thihariya";
-    String phoneNumber = "0760522970";
-    String postalCode = "11875";
+    HttpSession usersession = request.getSession(false);
+    com.toyStore.model.User loggedUser = null;
 
-    // If using session attributes (Uncomment if retrieving from session)
-    // username = (String) session.getAttribute("username");
-    // email = (String) session.getAttribute("email");
-    // address = (String) session.getAttribute("address");
-    // phoneNumber = (String) session.getAttribute("phoneNumber");
-    // postalCode = (String) session.getAttribute("postalCode");
+    if(usersession != null && usersession.getAttribute("user") != null){
+        loggedUser = (com.toyStore.model.User) usersession.getAttribute("user");
+    }else{
+        response.sendRedirect("/login");
+        return;
+    }
+
+    String username = loggedUser.getUserName();
+    String email = loggedUser.getEmail();
+    String address = loggedUser.getAddress();
+    String phoneNumber = loggedUser.getPhoneNumber();
 %>
 
 <html>
@@ -36,7 +36,7 @@
             background: white;
             border-radius: 15px;
             padding: 30px;
-            width: 80%; /* Profile card takes 80% of the page */
+            width: 80%;
             max-width: 900px;
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
             text-align: center;
@@ -68,12 +68,14 @@
             <p><strong>Email:</strong> <a href="mailto:<%= email %>"><%= email %></a></p>
             <p><strong>Address:</strong> <%= address %></p>
             <p><strong>Phone Number:</strong> <%= phoneNumber %></p>
-            <p><strong>Postal Code:</strong> <%= postalCode %></p>
         </div>
 
         <div class="d-flex flex-column">
-            <a href="editProfile.jsp" class="btn btn-primary btn-custom">Edit Information</a>
-            <a href="deleteProfile.jsp" class="btn btn-danger btn-custom">Delete Profile</a>
+            <a href="updateProfile.jsp" class="btn btn-primary btn-custom">Edit Information</a>
+            <form action="${pageContext.request.contextPath}/views/deleteProfile.jsp" method="POST">
+                <input type="hidden" name="email" value="<%= email %>">
+                <button type="submit" class="btn btn-danger btn-custom">Delete Profile</button>
+            </form>
         </div>
 
         <form action="${pageContext.request.contextPath}/logout" method="GET" class="mt-3">
