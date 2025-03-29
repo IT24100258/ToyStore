@@ -15,14 +15,16 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = req.getSession(false);
 
         if (session != null) {
-            session.removeAttribute("user");
-            session.invalidate();
+            session.removeAttribute("user");  // Remove user object
+            session.invalidate();  // Destroy session
         }
 
+        // Prevent browser from caching the previous session
         resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         resp.setHeader("Pragma", "no-cache");
         resp.setHeader("Expires", "0");
 
+        // Redirect to login or home page
         resp.sendRedirect(req.getContextPath() + "/");
     }
 }
