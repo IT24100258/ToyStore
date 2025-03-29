@@ -11,12 +11,20 @@ import java.io.IOException;
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
 
         if (session != null) {
-            session.invalidate();
+            session.removeAttribute("user");  // Remove user object
+            session.invalidate();  // Destroy session
         }
-        resp.sendRedirect(req.getContextPath() + "/login");
+
+        // Prevent browser from caching the previous session
+        resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        resp.setHeader("Pragma", "no-cache");
+        resp.setHeader("Expires", "0");
+
+        // Redirect to login or home page
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 }
