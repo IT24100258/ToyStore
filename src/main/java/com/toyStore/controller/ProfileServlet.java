@@ -19,10 +19,8 @@ public class ProfileServlet extends HttpServlet {
         boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
 
         if (isLoggedIn) {
-            // User is logged in, forward to profile page
             request.getRequestDispatcher("/views/profile.jsp").forward(request, response);
         } else {
-            // User is not logged in, redirect to login page
             response.sendRedirect(request.getContextPath() + "/login");
         }
     }
