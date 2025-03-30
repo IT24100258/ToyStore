@@ -5,13 +5,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="com.toyStore.model.User" %>
 
 <%
     HttpSession usersession = request.getSession(false);
-    com.toyStore.model.User loggedUser = null;
+    User loggedUser = null;
 
     if(usersession != null && usersession.getAttribute("user") != null){
-        loggedUser = (com.toyStore.model.User) usersession.getAttribute("user");
+        loggedUser = (User) usersession.getAttribute("user");
     }else{
         response.sendRedirect("/login");
         return;
@@ -71,7 +72,7 @@
         </div>
 
         <div class="d-flex flex-column">
-            <a href="updateProfile.jsp" class="btn btn-primary btn-custom">Edit Information</a>
+            <a href="${pageContext.request.contextPath}/views/updateProfile.jsp" class="btn btn-primary btn-custom">Edit Information</a>
             <form action="${pageContext.request.contextPath}/views/deleteProfile.jsp" method="POST">
                 <input type="hidden" name="email" value="<%= email %>">
                 <button type="submit" class="btn btn-danger btn-custom">Delete Profile</button>

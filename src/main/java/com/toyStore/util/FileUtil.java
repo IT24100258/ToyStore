@@ -153,6 +153,47 @@ public class FileUtil {
         }
     }
 
+    public static boolean updateUser(String email, String newUsername, String newPassword, String newPhoneNumber, String newAddress){
+        List<String> updatedLines = new ArrayList<>();
+        boolean isUpdated = false;
+
+        File file = getUserFile("customer");
+
+        try(BufferedReader r = new BufferedReader(new FileReader(file))){
+            String line;
+
+            while((line = r.readLine()) != null){
+                String[] data = line.split(",");
+                if (data.length == 7 && data[3].equals(email)){
+                    data[1] = newUsername;
+                    if(newPassword != null && !newPassword.isEmpty()){
+                        data[2] = encrypt(newPassword);
+                    }
+                    data[4] = newPhoneNumber;
+                    data[5] = newAddress;
+                    isUpdated = true;
+                }
+                updatedLines.add(String.join(",", data));
+            }
+        }catch(IOException e){
+            System.err.println("Error reading files: " + e.getMessage());
+            return false;
+        }
+
+        if(isUpdated){
+            try(BufferedWriter writer = new BufferedWriter(new FileWriter(file))){
+                for (String updatedLine : updatedLines) {
+                    writer.write(updatedLine);
+                    writer.newLine();
+                }
+                return true;
+            }catch(IOException e){
+                System.err.println("Error writing to user file: " + e.getMessage());
+                return false;
+            }
+        }
+        return false;
+    }
 
     private static String encrypt(String data) {
         if (data == null) return null;
