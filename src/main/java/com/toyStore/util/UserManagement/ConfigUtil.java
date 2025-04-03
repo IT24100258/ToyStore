@@ -1,6 +1,5 @@
-package com.toyStore.util;
+package com.toyStore.util.UserManagement;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 

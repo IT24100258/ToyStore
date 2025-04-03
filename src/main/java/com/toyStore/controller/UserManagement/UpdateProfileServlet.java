@@ -1,7 +1,7 @@
-package com.toyStore.controller;
+package com.toyStore.controller.UserManagement;
 
 
-import com.toyStore.model.User;
+import com.toyStore.model.UserManagement.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static com.toyStore.util.FileUtil.updateUser;
+import static com.toyStore.util.UserManagement.FileUtil.updateUser;
 
 @WebServlet("/updateProfile")
 public class UpdateProfileServlet extends HttpServlet {

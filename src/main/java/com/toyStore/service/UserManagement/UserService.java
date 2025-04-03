@@ -1,7 +1,7 @@
-package com.toyStore.service;
+package com.toyStore.service.UserManagement;
 
-import com.toyStore.model.User;
-import com.toyStore.util.FileUtil;
+import com.toyStore.model.UserManagement.User;
+import com.toyStore.util.UserManagement.FileUtil;
 
 import java.io.IOException;
 

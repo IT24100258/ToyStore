@@ -1,7 +1,7 @@
-package com.toyStore.controller;
+package com.toyStore.controller.UserManagement;
 
-import com.toyStore.model.User;
-import com.toyStore.service.UserService;
+import com.toyStore.model.UserManagement.User;
+import com.toyStore.service.UserManagement.UserService;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -14,7 +14,7 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/views/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/views/UserManagement/index.jsp").forward(req, resp);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class UserServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/login");
         } catch (Exception e) {
             req.setAttribute("error", "Registration failed: " + e.getMessage());
-            req.getRequestDispatcher("/views/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/UserManagement/index.jsp").forward(req, resp);
         }
     }
 }

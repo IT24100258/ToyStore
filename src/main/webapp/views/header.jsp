@@ -1,16 +1,28 @@
 <header>
   <style>
     :root {
-      --primary-color: #ff6f61;
-      --secondary-color: #2a2a72;
-      --light-color: #f8f9fa;
-      --dark-color: #212529;
+      --primary-color: #dd6767;
+      --secondary-color: #222831;
+      --light-color: #F6F0F0;
+      --dark-color: #333;
     }
+
     .navbar {
       background-color: var(--secondary-color) !important;
     }
+
     .navbar-brand, .nav-link {
-      color: white !important;
+      color: var(--light-color) !important;
+    }
+
+    .btn-outline-light {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .btn-outline-light:hover {
+      background-color: var(--primary-color);
+      color: var(--light-color);
     }
   </style>
 
