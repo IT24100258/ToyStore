@@ -1,4 +1,4 @@
-<%@ page import="com.toyStore.util.FileUtil" %>
+<%@ page import="com.toyStore.util.UserManagement.FileUtil" %>
 
 <%
     String email = request.getParameter("email");

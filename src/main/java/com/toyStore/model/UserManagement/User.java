@@ -1,4 +1,4 @@
-package com.toyStore.model;
+package com.toyStore.model.UserManagement;
 
 public class User {
     private int id;

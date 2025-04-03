@@ -1,7 +1,7 @@
-package com.toyStore.controller;
+package com.toyStore.controller.UserManagement;
 
-import com.toyStore.model.User;
-import com.toyStore.util.FileUtil;
+import com.toyStore.model.UserManagement.User;
+import com.toyStore.util.UserManagement.FileUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
+        req.getRequestDispatcher("/views/UserManagement/login.jsp").forward(req, resp);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 
         if (user == null) {
             req.setAttribute("error", "Invalid email or password");
-            req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/UserManagement/login.jsp").forward(req, resp);
         }else{
             HttpSession session = req.getSession();
             session.setAttribute("user", user);

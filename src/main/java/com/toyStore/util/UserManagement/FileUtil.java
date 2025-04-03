@@ -1,6 +1,6 @@
-package com.toyStore.util;
+package com.toyStore.util.UserManagement;
 
-import com.toyStore.model.User;
+import com.toyStore.model.UserManagement.User;
 
 import java.io.*;
 import java.util.ArrayList;

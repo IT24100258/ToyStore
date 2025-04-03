@@ -1,4 +1,4 @@
-package com.toyStore.controller;
+package com.toyStore.controller.UserManagement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

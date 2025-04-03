@@ -1,6 +1,6 @@
 package com.toyStore.filter;
 
-import com.toyStore.model.User;
+import com.toyStore.model.UserManagement.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
