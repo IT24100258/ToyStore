@@ -1,5 +1,6 @@
 package com.toyStore.util.UserManagement;
 
+import com.toyStore.model.UserManagement.Admin;
 import com.toyStore.model.UserManagement.User;
 
 import java.io.*;
@@ -59,6 +60,22 @@ public class FileUtil {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
             writer.write(userId + "," + user.getUserName() + "," + encryptedPassword + "," + user.getEmail() + "," +
                     user.getPhoneNumber() + "," + user.getAddress() + "," + user.getRole());
+            writer.newLine();
+            System.out.println("User saved to " + file.getAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("Error saving user: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static synchronized void saveAdmin(Admin admin) throws IOException {
+        File file = getUserFile(admin.getRole());
+        int adminId = getNextUserId(admin.getRole());
+        String encryptedPassword = encrypt(admin.getPassword());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+            writer.write(adminId + "," + admin.getUserName() + "," + encryptedPassword + "," + admin.getEmail() + "," +
+                    admin.getPhoneNumber() + "," + admin.getAddress() + "," + admin.getRole());
             writer.newLine();
             System.out.println("User saved to " + file.getAbsolutePath());
         } catch (IOException e) {
