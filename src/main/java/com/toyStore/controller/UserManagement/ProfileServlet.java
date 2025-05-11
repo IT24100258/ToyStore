@@ -19,9 +19,16 @@ public class ProfileServlet extends HttpServlet {
         boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
 
         if (isLoggedIn) {
-            request.getRequestDispatcher("/views/UserManagement/profile.jsp").forward(request, response);
+            com.toyStore.model.UserManagement.User user =
+                    (com.toyStore.model.UserManagement.User) session.getAttribute("user");
+            if ("admin".equals(user.getRole())) {
+                response.sendRedirect(request.getContextPath() + "/views/admin/AdminManagement/admin.jsp");
+            } else {
+                request.getRequestDispatcher("/views/UserManagement/profile.jsp").forward(request, response);
+            }
         } else {
             response.sendRedirect(request.getContextPath() + "/login");
         }
     }
+
 }

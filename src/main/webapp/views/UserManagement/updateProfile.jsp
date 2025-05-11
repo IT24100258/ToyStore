@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Tuf
-  Date: 3/29/2025
-  Time: 6:30 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="com.toyStore.model.UserManagement.User" %>
@@ -24,9 +17,9 @@
     String email = loggedUser.getEmail();
     String address = loggedUser.getAddress();
     String phoneNumber = loggedUser.getPhoneNumber();
-    String password = loggedUser.getPassword();
 %>
 
+<!DOCTYPE html>
 <html>
 <head>
     <title>Update Profile | <%= username %></title>
@@ -43,67 +36,71 @@
             --text-primary: #2d3436;
             --text-secondary: #636e72;
         }
-
         body {
-            background-color: var(--bg-light);
+            background: linear-gradient(120deg, #f9fafb 0%, #f6f0f0 60%, #fd79a8 100%);
             color: var(--text-primary);
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
         }
-
         .profile-container {
-            padding: 2rem 1rem;
+            padding: 2.5rem 1rem;
         }
-
-        .profile-card {
-            background: var(--card-bg);
-            border-radius: 16px;
+        .profile-glass {
+            background: rgba(255,255,255,0.93);
+            border-radius: 28px;
+            box-shadow: 0 12px 48px rgba(108,92,231,0.13);
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            max-width: 600px;
+            margin: 4rem auto 2rem auto;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(108,92,231,0.09);
             transition: transform 0.3s;
         }
-
-        .profile-card:hover {
-            transform: translateY(-5px);
+        .profile-glass:hover {
+            transform: translateY(-5px) scale(1.01);
         }
-
         .profile-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            padding: 2.5rem 1.5rem 1.5rem;
+            background: linear-gradient(135deg, #6c5ce7, #fd79a8);
             color: white;
+            padding: 2.5rem 1.5rem 1.5rem;
             text-align: center;
-            position: relative;
+            border-radius: 28px 28px 0 0;
         }
-
         .profile-avatar {
-            width: 100px;
-            height: 100px;
-            background-color: white;
+            width: 110px;
+            height: 110px;
+            background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            margin: 0 auto 1.1rem;
+            border: 5px solid rgba(255,255,255,0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
-
         .profile-avatar i {
-            font-size: 40px;
-            color: var(--primary-color);
+            font-size: 48px;
+            color: #6c5ce7;
         }
-
+        .profile-header h3 {
+            margin-bottom: 0.3rem;
+            font-weight: 800;
+        }
+        .profile-header p {
+            margin-bottom: 0;
+            font-size: 1.1rem;
+            letter-spacing: 0.01em;
+        }
         .profile-body {
-            padding: 2rem;
+            padding: 2.2rem 2rem 1.2rem 2rem;
         }
-
         .form-floating {
             margin-bottom: 1.25rem;
         }
-
         .form-floating > label {
             color: var(--text-secondary);
         }
-
         .form-control {
             border-radius: 10px;
             border: 1px solid #e0e0e0;
@@ -113,82 +110,56 @@
             box-shadow: none;
             transition: all 0.3s;
         }
-
         .form-control:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.25rem rgba(108, 92, 231, 0.25);
         }
-
         .btn-profile {
             border-radius: 10px;
             padding: 0.75rem 1.5rem;
-            font-weight: 500;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            font-size: 0.9rem;
+            font-size: 0.97rem;
             transition: all 0.3s;
         }
-
         .btn-update {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
+            background: linear-gradient(90deg, #6c5ce7 0%, #fd79a8 100%);
+            border: none;
+            color: #fff;
         }
-
         .btn-update:hover {
-            background-color: #5a4ccf;
-            border-color: #5a4ccf;
+            background: linear-gradient(90deg, #fd79a8 0%, #6c5ce7 100%);
+            color: #fff;
         }
-
         .btn-back {
             background-color: #b2bec3;
-            border-color: #b2bec3;
+            border: none;
             color: #2d3436;
         }
-
         .btn-back:hover {
             background-color: #a0aab1;
-            border-color: #a0aab1;
+            color: #fff;
         }
-
         .action-buttons {
             display: grid;
             grid-template-columns: 1fr;
             gap: 12px;
             margin-top: 1.5rem;
         }
-
-        .input-group-text {
-            background-color: #f8f9fa;
-            border-radius: 10px 0 0 10px;
-            border: 1px solid #e0e0e0;
-            border-right: none;
-        }
-
-        .password-field {
-            position: relative;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-        }
-
         .alert {
             border-radius: 10px;
             padding: 1rem;
             margin-bottom: 1.5rem;
             border: none;
         }
-
         .alert-info {
             background-color: rgba(108, 92, 231, 0.1);
             color: var(--primary-color);
+        }
+        @media (max-width: 600px) {
+            .profile-glass { padding: 1.2rem 0.5rem; }
+            .profile-header { font-size: 1.3rem; }
         }
     </style>
 </head>
@@ -197,105 +168,60 @@
 <%@ include file="/views/header.jsp" %>
 
 <div class="container profile-container">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
-            <div class="profile-card">
-                <div class="profile-header">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user-edit"></i>
-                    </div>
-                    <h3 class="mb-1">Update Profile</h3>
-                    <p class="mb-0">Edit your account information</p>
-                </div>
-
-                <div class="profile-body">
-                    <% String message = (String) request.getAttribute("message"); %>
-                    <% if (message != null) { %>
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle me-2"></i><%= message %>
-                    </div>
-                    <% } %>
-
-                    <form action="${pageContext.request.contextPath}/updateProfile" method="POST">
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                <div class="form-floating flex-grow-1">
-                                    <input type="text" id="username" name="username" class="form-control" value="<%= username%>" required>
-                                    <label for="username">Username</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                <div class="form-floating flex-grow-1">
-                                    <input type="email" id="email" name="email" class="form-control" value="<%= email%>" required>
-                                    <label for="email">Email</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                <div class="form-floating flex-grow-1">
-                                    <input type="text" id="address" name="address" class="form-control" value="<%= address%>" required>
-                                    <label for="address">Address</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                <div class="form-floating flex-grow-1">
-                                    <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" value="<%= phoneNumber%>" required>
-                                    <label for="phoneNumber">Phone Number</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                <div class="form-floating flex-grow-1 password-field">
-                                    <input type="password" id="newPassword" name="newPassword" class="form-control">
-                                    <label for="newPassword">New Password</label>
-                                </div>
-                            </div>
-                            <small class="text-muted ms-4">Leave blank to keep current password</small>
-                        </div>
-
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                <div class="form-floating flex-grow-1 password-field">
-                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control">
-                                    <label for="confirmPassword">Confirm New Password</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="action-buttons">
-                            <button type="submit" class="btn btn-primary btn-profile btn-update">
-                                <i class="fas fa-save me-2"></i> Save Changes
-                            </button>
-
-                            <a href="${pageContext.request.contextPath}/views/UserManagement/profile.jspent/profile.jsp" class="btn btn-secondary btn-profile btn-back">
-                                <i class="fas fa-arrow-left me-2"></i> Back to Profile
-                            </a>
-                        </div>
-                    </form>
-                </div>
+    <div class="profile-glass">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <i class="fas fa-user-edit"></i>
             </div>
+            <h3 class="mb-1">Update Profile</h3>
+            <p class="mb-0">Edit your account information</p>
+        </div>
+        <div class="profile-body">
+            <% String message = (String) request.getAttribute("message"); %>
+            <% if (message != null) { %>
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i><%= message %>
+            </div>
+            <% } %>
+            <form action="${pageContext.request.contextPath}/updateProfile" method="POST">
+                <div class="form-floating mb-3">
+                    <input type="text" id="username" name="username" class="form-control" value="<%= username%>" required>
+                    <label for="username"><i class="fas fa-user me-2"></i>Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" id="email" name="email" class="form-control" value="<%= email%>" required>
+                    <label for="email"><i class="fas fa-envelope me-2"></i>Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" id="address" name="address" class="form-control" value="<%= address%>" required>
+                    <label for="address"><i class="fas fa-map-marker-alt me-2"></i>Address</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" value="<%= phoneNumber%>" required>
+                    <label for="phoneNumber"><i class="fas fa-phone me-2"></i>Phone Number</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" id="newPassword" name="newPassword" class="form-control">
+                    <label for="newPassword"><i class="fas fa-lock me-2"></i>New Password</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control">
+                    <label for="confirmPassword"><i class="fas fa-lock me-2"></i>Confirm New Password</label>
+                </div>
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-profile btn-update">
+                        <i class="fas fa-save me-2"></i> Save Changes
+                    </button>
+                    <a href="${pageContext.request.contextPath}/views/UserManagement/profile.jsp" class="btn btn-profile btn-back">
+                        <i class="fas fa-arrow-left me-2"></i> Back to Profile
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 <%@ include file="/views/footer.jsp" %>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
