@@ -1,5 +1,11 @@
 package com.toyStore.model.UserManagement;
 
+import com.toyStore.model.OrderManagement.Order;
+import com.toyStore.model.PaymentManagement.PaymentMethod;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private int id;
     protected String userName;
@@ -8,6 +14,10 @@ public class User {
     protected String phoneNumber;
     protected String address;
     private String role;
+
+    private List<PaymentMethod> paymentMethods = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
+
 
     public User(String userName, String password, String email, String phoneNumber, String address) {
         this.userName = userName;
@@ -84,5 +94,23 @@ public class User {
         this.userName = userName;
     }
 
+    public List<PaymentMethod> getPaymentMethods() {
+        return paymentMethods;
+    }
 
+    public void addPaymentMethod(PaymentMethod method) {
+        if (method != null) {
+            this.paymentMethods.add(method);
+        }
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void addOrder(Order order) {
+        if (order != null) {
+            this.orders.add(order);
+        }
+    }
 }

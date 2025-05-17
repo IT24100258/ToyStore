@@ -145,6 +145,15 @@ public class FileUtil {
         }
     }
 
+    public static User getUserByUsername(String username) {
+        for (User user : getUsers()) {
+            if (user.getUserName().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     public static boolean updateUser(String email, String newUsername, String newPassword, String newPhoneNumber, String newAddress){
         List<String> updatedLines = new ArrayList<>();
         boolean isUpdated = false;
