@@ -34,9 +34,24 @@ public class AuthenticationFilter implements Filter {
         HttpSession session = httpRequest.getSession(false);
         User user = (session != null) ? (User) session.getAttribute("user") : null;
 
+        if (path.startsWith(httpRequest.getContextPath() + "/addReview")) {
+            if (user != null && "admin".equals(user.getRole())) {
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
+                return;
+            }
+        }
+
+        if (path.startsWith(httpRequest.getContextPath() + "/paymentMethods") ||
+                path.startsWith(httpRequest.getContextPath() + "/addPaymentMethod") || path.startsWith(httpRequest.getContextPath() + "/order")) {
+            if (user == null || !"customer".equals(user.getRole())) {
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
+                return;
+            }
+        }
+
         if (path.startsWith(httpRequest.getContextPath() + "/views/admin/")) {
             if (user == null || !"admin".equals(user.getRole())) {
-                httpResponse.sendRedirect(httpRequest.getContextPath() + "/views/home.jsp");
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
                 return;
             }
         }
