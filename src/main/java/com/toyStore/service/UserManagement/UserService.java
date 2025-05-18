@@ -11,7 +11,7 @@ public class UserService {
         FileUtil.saveUser(user);
     }
 
-    public void registerAdmin(Admin admin) throws IOException {
-        FileUtil.saveUser(admin);
-    }
+//    public void registerAdmin(Admin admin) throws IOException {
+//        FileUtil.saveUser(admin);
+//    }
 }

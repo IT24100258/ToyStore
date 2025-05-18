@@ -1,6 +1,5 @@
 package com.toyStore.util.UserManagement;
 
-import com.toyStore.model.UserManagement.Admin;
 import com.toyStore.model.UserManagement.User;
 
 import java.io.*;
@@ -10,12 +9,10 @@ import java.util.List;
 
 public class FileUtil {
     private static final String USER_FILE_PATH = "data/users.txt";
-    private static final String ADMIN_FILE_PATH = "data/admins.txt";
     private static final String SECRET_KEY = ConfigUtil.getProperty();
 
-    private static File getUserFile(String role) {
-        String filePath = "customer".equals(role) ? USER_FILE_PATH : ADMIN_FILE_PATH;
-        File file = new File(filePath);
+    private static File getUserFile() {
+        File file = new File(USER_FILE_PATH);
 
         System.out.println("User file absolute path: " + file.getAbsolutePath());
 
@@ -30,8 +27,8 @@ public class FileUtil {
         return file;
     }
 
-    private static int getNextUserId(String role) {
-        File file = getUserFile(role);
+    private static int getNextUserId() {
+        File file = getUserFile();
         int lastId = 0;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -53,13 +50,13 @@ public class FileUtil {
     }
 
     public static synchronized void saveUser(User user) throws IOException {
-        File file = getUserFile(user.getRole());
-        int userId = getNextUserId(user.getRole());
+        File file = getUserFile();
+        int userId = getNextUserId();
         String encryptedPassword = encrypt(user.getPassword());
-
+        String safeAddress = user.getAddress() != null ? user.getAddress().replace(",", ";") : "";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
             writer.write(userId + "," + user.getUserName() + "," + encryptedPassword + "," + user.getEmail() + "," +
-                    user.getPhoneNumber() + "," + user.getAddress() + "," + user.getRole());
+                    user.getPhoneNumber() + "," + safeAddress + "," + user.getRole());
             writer.newLine();
             System.out.println("User saved to " + file.getAbsolutePath());
         } catch (IOException e) {
@@ -68,25 +65,9 @@ public class FileUtil {
         }
     }
 
-    public static synchronized void saveAdmin(Admin admin) throws IOException {
-        File file = getUserFile(admin.getRole());
-        int adminId = getNextUserId(admin.getRole());
-        String encryptedPassword = encrypt(admin.getPassword());
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
-            writer.write(adminId + "," + admin.getUserName() + "," + encryptedPassword + "," + admin.getEmail() + "," +
-                    admin.getPhoneNumber() + "," + admin.getAddress() + "," + admin.getRole());
-            writer.newLine();
-            System.out.println("User saved to " + file.getAbsolutePath());
-        } catch (IOException e) {
-            System.err.println("Error saving user: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    public static List<User> getUsers(String role) {
+    public static List<User> getUsers() {
         List<User> users = new ArrayList<>();
-        File file = getUserFile(role);
+        File file = getUserFile();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -94,13 +75,14 @@ public class FileUtil {
                 String[] data = line.split(",");
                 if (data.length == 7) {
                     String decryptedPassword = decrypt(data[2]);
+                    String restoredAddress = data[5] != null ? data[5].replace(";", ",") : "";
                     users.add(new User(
                             Integer.parseInt(data[0]),
                             data[1],
                             decryptedPassword,
                             data[3],
                             data[4],
-                            data[5],
+                            restoredAddress,
                             data[6]
                     ));
                 }
@@ -113,23 +95,16 @@ public class FileUtil {
     }
 
     public static User getUser(String email, String password) {
-        for (User user : getUsers("customer")) {
+        for (User user : getUsers()) {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 return user;
             }
         }
-
-        for (User user : getUsers("admin")) {
-            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
-                return user;
-            }
-        }
-
         return null;
     }
 
     public static boolean removeUser(String email){
-        File customerFile = getUserFile("customer");
+        File customerFile = getUserFile();
         return removeUserFromFile(customerFile, email);
     }
 
@@ -170,15 +145,22 @@ public class FileUtil {
         }
     }
 
+    public static User getUserByUsername(String username) {
+        for (User user : getUsers()) {
+            if (user.getUserName().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     public static boolean updateUser(String email, String newUsername, String newPassword, String newPhoneNumber, String newAddress){
         List<String> updatedLines = new ArrayList<>();
         boolean isUpdated = false;
 
-        File file = getUserFile("customer");
-
+        File file = getUserFile();
         try(BufferedReader r = new BufferedReader(new FileReader(file))){
             String line;
-
             while((line = r.readLine()) != null){
                 String[] data = line.split(",");
                 if (data.length == 7 && data[3].equals(email)){
@@ -187,7 +169,7 @@ public class FileUtil {
                         data[2] = encrypt(newPassword);
                     }
                     data[4] = newPhoneNumber;
-                    data[5] = newAddress;
+                    data[5] = (newAddress != null) ? newAddress.replace(",", ";") : "";
                     isUpdated = true;
                 }
                 updatedLines.add(String.join(",", data));

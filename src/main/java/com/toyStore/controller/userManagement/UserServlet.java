@@ -1,4 +1,4 @@
-package com.toyStore.controller.UserManagement;
+package com.toyStore.controller.userManagement;
 
 import com.toyStore.model.UserManagement.User;
 import com.toyStore.service.UserManagement.UserService;
