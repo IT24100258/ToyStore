@@ -63,7 +63,6 @@
 <body>
 
 <%@ include file="/views/header.jsp" %>
-
 <!-- Carousel -->
 <div id="toyCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -90,36 +89,47 @@
     <!-- Featured Products -->
     <h2 class="text-center">Featured Toys</h2>
     <div class="row mt-4">
+
         <div class="col-md-4">
+
             <div class="card product-card">
-                <img src="${pageContext.request.contextPath}/images/Products/toycar.jpg" class="card-img-top" alt="Toy Car">
+                <a href="${pageContext.request.contextPath}/views/ReviewManagement/review.jsp?toy=ToyCar">
+                    <img src="${pageContext.request.contextPath}/images/Products/toycar.jpg" class="card-img-top" alt="Toy Car">
+                </a>
                 <div class="card-body">
                     <h5 class="card-title">Toy Car</h5>
                     <p class="card-text">A fun and fast toy car for kids!</p>
-                    <p class="toy-price">Rs 19.99</p>
-                    <a href="#" class="btn btn-custom">Add to Cart</a>
+                    <p class="toy-price">Rs 1990</p>
+                    <a href="#"class="btn btn-danger">Add to Cart</a>
+
                 </div>
             </div>
         </div>
         <div class="col-md-4">
+
             <div class="card product-card">
-                <img src="${pageContext.request.contextPath}/images/Products/dollhouse.jpg" class="card-img-top" alt="Doll House">
+                <a href="${pageContext.request.contextPath}/views/ReviewManagement/review.jsp?toy=DollHouse">
+                    <img src="${pageContext.request.contextPath}/images/Products/dollhouse.jpg" class="card-img-top" alt="DollHouse">
+                </a>
                 <div class="card-body">
                     <h5 class="card-title">Doll House</h5>
                     <p class="card-text">A beautiful dollhouse for creative play.</p>
-                    <p class="toy-price">Rs 49.99</p>
-                    <a href="#" class="btn btn-custom">Add to Cart</a>
+                    <p class="toy-price">Rs 4999</p>
+                    <a href="#"class="btn btn-danger">Add to Cart</a>
                 </div>
+
             </div>
         </div>
         <div class="col-md-4">
             <div class="card product-card">
-                <img src="${pageContext.request.contextPath}/images/Products/blocks.jpg" class="card-img-top" alt="Building Blocks">
+                <a href="${pageContext.request.contextPath}/views/ReviewManagement/review.jsp?toy=Building">
+                    <img src="${pageContext.request.contextPath}/images/Products/building.jpg" class="card-img-top" alt="Building Blocks">
+                </a>
                 <div class="card-body">
                     <h5 class="card-title">Building Blocks</h5>
                     <p class="card-text">Endless creativity with these building blocks.</p>
-                    <p class="toy-price">Rs 29.99</p>
-                    <a href="#" class="btn btn-custom">Add to Cart</a>
+                    <p class="toy-price">Rs 2990</p>
+                    <a href="#"class="btn btn-danger">Add to Cart</a>
                 </div>
             </div>
         </div>
@@ -134,7 +144,6 @@
 </div>
 
 <%@ include file="/views/footer.jsp" %>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
