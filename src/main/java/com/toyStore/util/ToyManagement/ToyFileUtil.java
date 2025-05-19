@@ -1,5 +1,10 @@
 package com.toyStore.util.ToyManagement;
 
+import com.toyStore.model.Toymanagement.Toy;
+import com.toyStore.model.Toymanagement.ToyLinkedList;
+
+import java.io.*;
+
 public class ToyFileUtil {
     private static final String TOY_FILE_PATH = "data/toys.txt";
 
@@ -22,8 +27,8 @@ public class ToyFileUtil {
                     list.insertToy(id, name, description, ageGroup, price, imagePath);
                 }
             }
-
-            ReviewFileUtil.loadReviewsForToy(list);
+            // REMOVE this line:
+            // ReviewFileUtil.loadReviewsForToy(list);
         } catch (IOException e) {
             System.err.println("Error loading toys: " + e.getMessage());
         }
@@ -44,8 +49,8 @@ public class ToyFileUtil {
                 writer.newLine();
                 current = current.next;
             }
-
-            ReviewFileUtil.loadReviewsForToy(list);
+            // REMOVE this line:
+            // ReviewFileUtil.loadReviewsForToy(list);
         } catch (IOException e) {
             System.err.println("Error saving toys: " + e.getMessage());
         }
@@ -70,5 +75,4 @@ public class ToyFileUtil {
         list.delete(id);
         saveToys(list);
     }
-
 }
