@@ -6,8 +6,8 @@ import java.util.List;
 public class ToyLinkedList {
     private static ToyLinkedList instance;
     private Toy first;
-    public ToyLinkedList() {
 
+    public ToyLinkedList() {
         this.first = null;
     }
 
