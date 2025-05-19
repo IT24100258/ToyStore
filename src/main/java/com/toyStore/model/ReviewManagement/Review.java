@@ -1,25 +1,24 @@
 package com.toyStore.model.ReviewManagement;
 
+import com.toyStore.model.Toymanagement.Toy;
+import com.toyStore.model.UserManagement.User;
+
 public class Review {
-    private String username;
-    private String product;
-    private String text;
+    private Toy toy;
+    private User reviewer;
+    private String content;
+    private int rating; // Add rating if you want star ratings
 
-    public Review(String username, String product, String text) {
-        this.username = username;
-        this.product = product;
-        this.text = text;
+    public Review(Toy toy, User reviewer, String content, int rating) {
+        this.toy = toy;
+        this.reviewer = reviewer;
+        this.content = content;
+        this.rating = rating;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getProduct() {
-        return product;
-    }
-
-    public String getText() {
-        return text;
-    }
+    public Toy getToy() { return toy; }
+    public int getToyId() { return toy.getId(); }
+    public User getReviewer() { return reviewer; }
+    public String getContent() { return content; }
+    public int getRating() { return rating; }
 }

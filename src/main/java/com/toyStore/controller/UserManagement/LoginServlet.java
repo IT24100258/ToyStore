@@ -2,6 +2,7 @@ package com.toyStore.controller.UserManagement;
 
 import com.toyStore.model.UserManagement.User;
 import com.toyStore.util.UserManagement.FileUtil;
+import com.toyStore.util.adminManegment.AdminFileUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,16 +27,22 @@ public class LoginServlet extends HttpServlet {
         User user = FileUtil.getUser(email, password);
 
         if (user == null) {
+            user = AdminFileUtil.getAdmin(email, password);
+        }
+
+        if (user == null) {
             req.setAttribute("error", "Invalid email or password");
             req.getRequestDispatcher("/views/UserManagement/login.jsp").forward(req, resp);
-        }else{
+        } else {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
+            req.getSession().setAttribute("username", user.getUserName());
+
 
             if ("admin".equals(user.getRole())) {
-                resp.sendRedirect(req.getContextPath() + "/views/admin/admin.jsp");
+                resp.sendRedirect(req.getContextPath() + "/views/admin/AdminManagement/admin.jsp");
             } else {
-                resp.sendRedirect(req.getContextPath() + "/views/home.jsp");
+                resp.sendRedirect(req.getContextPath() + "/");
             }
         }
     }
