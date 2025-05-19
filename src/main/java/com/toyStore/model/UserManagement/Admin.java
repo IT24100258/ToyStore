@@ -1,4 +1,4 @@
-package com.toyStore.model;
+package com.toyStore.model.UserManagement;
 
 public class Admin extends User{
     public Admin(String userName, String password, String email, String phoneNumber, String address){
