@@ -2,7 +2,7 @@ package com.toyStore.controller.UserManagement;
 
 import com.toyStore.model.UserManagement.User;
 import com.toyStore.util.UserManagement.FileUtil;
-import com.toyStore.util.AdminManagement.AdminFileUtil;
+import com.toyStore.util.adminManegment.AdminFileUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

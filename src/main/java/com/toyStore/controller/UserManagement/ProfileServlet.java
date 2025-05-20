@@ -30,5 +30,4 @@ public class ProfileServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
         }
     }
-
 }

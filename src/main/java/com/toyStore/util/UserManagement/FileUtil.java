@@ -194,7 +194,7 @@ public class FileUtil {
         return false;
     }
 
-    private static String encrypt(String data) {
+    public static String encrypt(String data) {
         if (data == null) return null;
 
         if (SECRET_KEY == null || SECRET_KEY.isEmpty()) {
@@ -212,7 +212,7 @@ public class FileUtil {
         return Base64.getEncoder().encodeToString(encrypted);
     }
 
-    private static String decrypt(String encryptedData) {
+    public static String decrypt(String encryptedData) {
         if (encryptedData == null) return null;
 
         try {
