@@ -1,14 +1,15 @@
 package com.toyStore.model.PaymentManagement;
 
 public class PaymentMethod {
+    private String userName;
     private String cardHolder;
     private String cardNumber;
     private String expiryMonth;
     private String expiryYear;
     private String cardType;
 
-    public PaymentMethod(String cardHolder, String cardNumber, String expiryMonth,
-                         String expiryYear, String cardType) {
+    public PaymentMethod(String userName, String cardHolder, String cardNumber, String expiryMonth, String expiryYear, String cardType) {
+        this.userName = userName;
         this.cardHolder = cardHolder;
         this.cardNumber = cardNumber;
         this.expiryMonth = expiryMonth;
@@ -16,7 +17,6 @@ public class PaymentMethod {
         this.cardType = cardType;
     }
 
-    // Getters
     public String getCardHolder() {
         return cardHolder;
     }
@@ -35,5 +35,9 @@ public class PaymentMethod {
 
     public String getCardType() {
         return cardType;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

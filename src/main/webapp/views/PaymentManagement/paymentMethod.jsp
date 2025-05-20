@@ -151,12 +151,13 @@
   <% for (PaymentMethod pm : methods) { %>
   <div class="card-method" tabindex="0" aria-label="Payment method: <%= pm.getCardType() %> ending with <%= pm.getCardNumber().substring(pm.getCardNumber().length() - 4) %>">
     <i class="card-icon
-              <%= pm.getCardType().equalsIgnoreCase("Visa") ? "fab fa-cc-visa" :
-                  pm.getCardType().equalsIgnoreCase("MasterCard") ? "fab fa-cc-mastercard" :
-                  pm.getCardType().equalsIgnoreCase("Amex") ? "fab fa-cc-amex" : "fas fa-credit-card" %>"></i>
+          <%= pm.getCardType().equalsIgnoreCase("Visa") ? "fab fa-cc-visa" :
+              pm.getCardType().equalsIgnoreCase("MasterCard") ? "fab fa-cc-mastercard" :
+              pm.getCardType().equalsIgnoreCase("Amex") ? "fab fa-cc-amex" :
+              pm.getCardType().equalsIgnoreCase("Discover") ? "fab fa-cc-discover" : "fa fa-credit-card" %>"></i>
     <div class="method-details">
       <div class="fw-semibold"><%= pm.getCardHolder() %></div>
-      <div class="text-muted"><%= pm.getCardType() %> · **** **** **** <%= pm.getCardNumber().substring(pm.getCardNumber().length() - 4) %></div>
+      <div class="text-muted"><%= pm.getCardType() %> &middot; <%= pm.getCardNumber() %></div>
       <div class="text-secondary">Exp: <%= pm.getExpiryMonth() %>/<%= pm.getExpiryYear() %></div>
     </div>
   </div>
@@ -168,7 +169,7 @@
     <a href="<%= request.getContextPath() %>/profile" class="btn btn-back btn-modern" aria-label="Back to Profile">
       <i class="fas fa-arrow-left me-2"></i>Back to Profile
     </a>
-    <a href="<%= request.getContextPath() %>/add" class="btn btn-add btn-modern" aria-label="Add Payment Method">
+    <a href="<%= request.getContextPath() %>/addPaymentMethod" class="btn btn-add btn-modern" aria-label="Add Payment Method">
       <i class="fas fa-plus me-2"></i>Add Payment Method
     </a>
   </div>

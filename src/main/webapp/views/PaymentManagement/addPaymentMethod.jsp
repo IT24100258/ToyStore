@@ -74,39 +74,29 @@
             letter-spacing: 0.03em;
             text-align: center;
         }
-        .error-message {
-            color: #dc3545;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
 <%@ include file="/views/header.jsp" %>
 <div class="add-method-form">
     <h2 class="add-title"><i class="fas fa-credit-card me-2"></i>Add Payment Method</h2>
-    <%-- Display error message if present --%>
-    <% if (request.getAttribute("error") != null) { %>
-    <div class="error-message"><%= request.getAttribute("error") %></div>
-    <% } %>
-    <form method="post" action="<%= request.getContextPath() %>/add">
+    <form method="post" action="<%= request.getContextPath() %>/addPaymentMethod">
         <div class="mb-3">
             <label class="form-label">Card Holder Name</label>
             <input type="text" name="cardHolder" class="form-control" required>
         </div>
         <div class="mb-3">
             <label class="form-label">Card Number</label>
-            <input type="text" name="cardNumber" id="cardNumber" class="form-control" pattern="\d{13,19}" maxlength="19" required placeholder="13 to 19-digit card number">
+            <input type="text" name="cardNumber" class="form-control" pattern="\d{15,16}" maxlength="16" required placeholder="15 or 16-digit card number">
         </div>
         <div class="row mb-3">
             <div class="col">
                 <label class="form-label">Expiry Month</label>
-                <input type="text" name="expiryMonth" class="form-control" pattern="(0[1-9]|1[0-2])" maxlength="2" required placeholder="MM (01-12)">
+                <input type="text" name="expiryMonth" class="form-control" pattern="\d{2}" maxlength="2" required placeholder="MM">
             </div>
             <div class="col">
                 <label class="form-label">Expiry Year</label>
-                <input type="text" name="expiryYear" class="form-control" pattern="\d{4}" maxlength="4" required placeholder="YYYY">
+                <input type="text" name="expiryYear" class="form-control" pattern="\d{2,4}" maxlength="4" required placeholder="YYYY">
             </div>
         </div>
         <div class="mb-3">
@@ -116,6 +106,7 @@
                 <option value="Visa">Visa</option>
                 <option value="MasterCard">MasterCard</option>
                 <option value="Amex">Amex</option>
+                <option value="Discover">Discover</option>
             </select>
         </div>
         <div class="d-flex gap-2">
@@ -130,12 +121,5 @@
 </div>
 <%@ include file="/views/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Format card number input (remove non-digits)
-    document.getElementById('cardNumber').addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        e.target.value = value;
-    });
-</script>
 </body>
 </html>
